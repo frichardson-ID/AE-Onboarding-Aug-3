@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AE Onboarding — Restructured Experience</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;color:#1a1a18;background:#fff;max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+h1{font-size:18px;font-weight:500;margin-bottom:3px}
+.doc-meta{font-size:12px;color:#6b6b67;margin-bottom:1.25rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.25rem}
+.stat{background:#f5f4ef;border-radius:7px;padding:10px 14px}
+.stat .lbl{font-size:11px;color:#9a9a94;margin-bottom:2px}
+.stat .val{font-size:16px;font-weight:500}
+.callout{border-left:3px solid #1D9E75;background:#F0FAF5;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:1.5rem}
+.callout h3{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#1D9E75;margin-bottom:8px}
+.callout ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.callout li{font-size:12px;color:#1a1a18;padding-left:14px;position:relative}
+.callout li::before{content:'→';position:absolute;left:0;color:#1D9E75;font-size:11px}
+.topic-key{background:#fafaf8;border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:12px 16px;margin-bottom:1.25rem}
+.topic-key h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#9a9a94;margin-bottom:8px}
+.topic-key-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 20px}
+.topic-key-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#4a4a45}
+.topic-key-name{font-weight:500}
+.topic-key-desc{color:#6b6b67}
+.day{margin-bottom:1.25rem;border:1px solid rgba(0,0,0,.1);border-radius:10px;overflow:hidden}
+.day-header{display:flex;align-items:baseline;gap:10px;padding:10px 14px;background:#f5f4ef;cursor:pointer;user-select:none}
+.day-header:hover{background:#eeede7}
+.day-num{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#9a9a94;white-space:nowrap}
+.day-title{font-size:13px;font-weight:500;flex:1}
+.day-goal{font-size:11px;color:#6b6b67;font-style:italic}
+.day-counts{display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap}
+.toggle{font-size:10px;color:#9a9a94;margin-left:6px;transition:transform .2s}
+.day.open .toggle{transform:rotate(180deg)}
+.day-body{display:none;padding:0}
+.day.open .day-body{display:block}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:#9a9a94;padding:6px 10px;text-align:left;border-bottom:1px solid rgba(0,0,0,.08);background:#fafaf8}
+tbody tr{border-bottom:1px solid rgba(0,0,0,.06)}
+tbody tr:last-child{border-bottom:none}
+tbody td{padding:7px 10px;vertical-align:top}
+.section-row td{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#9a9a94;background:#fafaf8;padding:5px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
+.act-title{font-size:12px;font-weight:500;margin-bottom:2px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.act-brief{font-size:11px;color:#6b6b67}
+.tb{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.04em;padding:1px 5px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.tb-live{background:#DCEEFB;color:#1A5C9E}
+.tb-il{background:#E5E3F5;color:#4A3E99}
+.tb-ext{background:#FEF0E0;color:#8C4F0A}
+.tb-new{background:#FDECEA;color:#C0392B}
+.sc{display:inline-block;font-size:10px;font-weight:500;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.sc-ready{background:#EAF3DE;color:#3B6D11}
+.sc-verify{background:#FAEEDA;color:#854F0B}
+.sc-scope{background:#FEF0E0;color:#7A3D08}
+.sc-create{background:#FDECEA;color:#C0392B}
+.sc-kendall{background:#F3EDFC;color:#5C2D9A}
+.sc-placed{background:#F2F2EE;color:#6b6b67}
+.sc-from{background:#EEF4FB;color:#2C5F8A}
+.sc-lowes-badge{background:#E8F0FD;color:#2B5DB0;font-size:10px;font-weight:500;padding:2px 7px;border-radius:999px;white-space:nowrap;display:inline-block}
+.tp{display:inline-flex;align-items:center;font-size:9px;font-weight:700;padding:2px 5px;border-radius:4px;white-space:nowrap;margin:1px 2px 1px 0}
+.tp-1{background:#FEF0E0;color:#7A3D08}
+.tp-2{background:#E3EDFB;color:#1A5C9E}
+.tp-3{background:#EAF3DE;color:#3B6D11}
+.tp-4{background:#E5E3F5;color:#4A3E99}
+.tp-5{background:#DDF2EE;color:#0F6B5E}
+.tp-6{background:#FDECEA;color:#C0392B}
+td.dur{white-space:nowrap;color:#6b6b67;font-size:12px;width:65px}
+td.status-col{width:120px}
+td.placement-col{width:95px}
+td.topics-col{width:80px}
+td.lowes-col{width:80px}
+.bottom{margin-top:1.5rem}
+.bottom h2{font-size:13px;font-weight:600;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(0,0,0,.1)}
+.check-list{display:flex;flex-direction:column;gap:6px;margin-bottom:1.5rem}
+.check-item{display:grid;grid-template-columns:16px 1fr;gap:8px;align-items:start;font-size:12px}
+.check-item .pri{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:2px}
+.pri-high{background:#E74C3C}
+.pri-med{background:#F39C12}
+.pri-low{background:#2ECC71}
+.check-item .check-title{font-weight:500}
+.check-item .check-note{font-size:11px;color:#6b6b67}
+.gap-item{margin-bottom:12px;padding:10px 14px;border:1px solid rgba(0,0,0,.1);border-left:3px solid #E74C3C;border-radius:0 8px 8px 0}
+.gap-item h4{font-size:12px;font-weight:600;margin-bottom:4px}
+.gap-item p{font-size:12px;color:#4a4a45}
+.gap-item .action{font-size:11px;color:#C0392B;margin-top:5px;font-style:italic}
+</style>
+</head>
+<body>
+
+<h1>AE onboarding — restructured experience</h1>
+<p class="doc-meta">SMB + Lowe's · August 3 cohort · 12 AEs (5 SMB + 7 Lowe's) · June 25, 2026</p>
+
+<div class="stats">
+  <div class="stat"><div class="lbl">Program length</div><div class="val">7 days</div></div>
+  <div class="stat"><div class="lbl">New builds needed</div><div class="val">2</div></div>
+  <div class="stat"><div class="lbl">Accuracy checks</div><div class="val">7</div></div>
+  <div class="stat"><div class="lbl">Cohort</div><div class="val" style="font-size:13px;padding-top:3px">5 SMB + 7 Lowe's</div></div>
+</div>
+
+<div class="topic-key">
+  <h3>Required topics key</h3>
+  <div class="topic-key-grid">
+    <div class="topic-key-item"><span class="tp tp-1">T1</span><span><span class="topic-key-name">Admin</span> <span class="topic-key-desc">— account setup, BGC, licenses, reviews, profile</span></span></div>
+    <div class="topic-key-item"><span class="tp tp-2">T2</span><span><span class="topic-key-name">Payments</span> <span class="topic-key-desc">— past due, holds, credit card requirements</span></span></div>
+    <div class="topic-key-item"><span class="tp tp-3">T3</span><span><span class="topic-key-name">Job Types</span> <span class="topic-key-desc">— claimable, traditional, smart leads</span></span></div>
+    <div class="topic-key-item"><span class="tp tp-4">T4</span><span><span class="topic-key-name">Salesforce</span> <span class="topic-key-desc">— opps, stage changes, pre-close checklist</span></span></div>
+    <div class="topic-key-item"><span class="tp tp-5">T5</span><span><span class="topic-key-name">Lowe's</span> <span class="topic-key-desc">— partnership basics, how it works, pro value</span></span></div>
+    <div class="topic-key-item"><span class="tp tp-6">T6</span><span><span class="topic-key-name">Selling</span> <span class="topic-key-desc">— consultative selling, objection handling</span></span></div>
+  </div>
+</div>
+
+<div class="callout" style="border-left-color:#6B7FD4;background:#F0F3FD">
+  <h3 style="color:#4A5BB8">Program structure — shared core + bifurcation</h3>
+  <ul>
+    <li><strong>All 12 AEs together (Days 1–7):</strong> Shared core covers platform, admin, types of jobs, payments, Salesforce, and consultative selling. Items in the Lowe's column are delivered in parallel for Lowe's AEs only.</li>
+    <li><strong>Lowe's AEs (7):</strong> Work Lowe's/Preset Jobs volume only — not traditional leads or smart leads. Take on account management responsibilities after onboarding. Teppy and Josh are SMEs for live Lowe's facilitation.</li>
+    <li><strong>SMB AEs (5):</strong> Handle traditional leads, smart leads, and job requests. No account management post-sale.</li>
+    <li><strong>Split point:</strong> Account management and ongoing Lowe's pro management are not in this shared experience — they come through the Lowe's add-on and post-onboarding support.</li>
+  </ul>
+</div>
+
+<!-- DAY 1 -->
+<div class="day open" id="day1">
+  <div class="day-header" onclick="toggle('day1')">
+    <span class="day-num">Day 1</span>
+    <span class="day-title">Orientation + Platform Foundations</span>
+    <span class="day-goal">AEs understand their role and the product before any operational content begins</span>
+    <div class="day-counts">
+      <span class="sc sc-ready">12 ready</span>
+      <span class="sc sc-scope">1 confirm audience</span>
+      <span class="sc sc-kendall">1 confirm w/ Kendall</span>
+    </div>
+    <span class="toggle">▾</span>
+  </div>
+  <div class="day-body">
+    <table>
+      <thead><tr><th style="width:38%">Activity</th><th>Duration</th><th>Status</th><th>Placement</th><th>Topics</th><th>Lowe's</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="6">Live Session</td></tr>
+        <tr><td><div class="act-title">Welcome &amp; Tech Check <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Opening logistics and system check</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to AE Role <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Sets the frame for the full program — keep first</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Meet &amp; Greet Leaders <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Department speaker session</div></td><td class="dur">45 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Job Categories at Thumbtack <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Orientation-level intro to job types — full deep dives come Day 3</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Product Features Part 1 <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Platform features introduction</div></td><td class="dur">45 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">YCBM Setup <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Operational tool setup while platform content is fresh</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr class="section-row"><td colspan="6">Independent Learning</td></tr>
+        <tr><td><div class="act-title">Product Essentials (13-course program) <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief"><strong>⚠️ Assumption — confirm with Kendall:</strong> Being absorbed into TT 101 (universal, all employees). If TT 101 runs for this cohort, remove this placeholder. If not, full 13-course program belongs here. Two sales-specific courses from the in-development version are placed on Days 5 and 6 regardless.</div></td><td class="dur">TBD</td><td class="status-col"><span class="sc sc-kendall">Confirm w/ Kendall</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Getting Started as a Pro on Thumbtack <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">AEs learn the pro experience they're selling</div></td><td class="dur">60 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Thumbtack Features <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Reinforces the live product features session</div></td><td class="dur">90 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to Staging Environment <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Technical setup for practice</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: Pro App Simulator <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Hands-on pro app exploration</div></td><td class="dur">20 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Selling Front Desk <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Front desk sales context</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to Playbook <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">AE playbook orientation</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">6 CS-track courses <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">De-escalation · Empathy at Thumbtack · Probing &amp; RCA · Personalization &amp; Engagement · Complete Resolution · Driving Value — added intentionally; confirm whether they belong in the AE track. Some (Empathy, Personalization, Driving Value) may have AE relevance — if so, consider moving to a later day.</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-scope">Confirm audience</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DAY 2 -->
+<div class="day open" id="day2">
+  <div class="day-header" onclick="toggle('day2')">
+    <span class="day-num">Day 2</span>
+    <span class="day-title">Platform Deep Dive + Admin Setup</span>
+    <span class="day-goal">Complete the platform picture, then introduce the admin tools AEs will use daily</span>
+    <div class="day-counts">
+      <span class="sc sc-ready">7 ready</span>
+      <span class="sc sc-verify">3 verify accuracy</span>
+      <span class="sc sc-scope">1 confirm audience</span>
+    </div>
+    <span class="toggle">▾</span>
+  </div>
+  <div class="day-body">
+    <table>
+      <thead><tr><th style="width:38%">Activity</th><th>Duration</th><th>Status</th><th>Placement</th><th>Topics</th><th>Lowe's</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="6">Live Session</td></tr>
+        <tr><td><div class="act-title">Welcome · Icebreaker · Assignment Review <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Opening routine</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Product Features Part 2 <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Completes the platform picture before shifting to admin</div></td><td class="dur">45 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Web &amp; App Experience <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Natural follow-on from product features</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to Tack and Admin <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Dept speaker session — admin tools and workflows</div></td><td class="dur">45 min</td><td class="status-col"><span class="sc sc-verify">Verify accuracy</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-1">T1</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">What to Expect During Shadowing <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Sets expectations before Day 3 first shadowing</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr class="section-row"><td colspan="6">Independent Learning</td></tr>
+        <tr><td><div class="act-title">Product Features Quiz <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Reinforces Days 1–2 platform content</div></td><td class="dur">10 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to Admin for Sales <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Reinforces the live Admin session — same day</div></td><td class="dur">60 min</td><td class="status-col"><span class="sc sc-verify">Verify accuracy</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-1">T1</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to Tack for Sales <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Pairs with live Intro to Tack session</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-verify">Verify accuracy</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-1">T1</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Background Check <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">BGC process — pairs with Admin content</div></td><td class="dur">20 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 1</span></td><td class="topics-col"><span class="tp tp-1">T1</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Navigating Ironclad as an AE <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Licensing and contracts — pairs with Admin content</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 1</span></td><td class="topics-col"><span class="tp tp-1">T1</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: Approved Thumbtack Metrics <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Platform context makes metrics meaningful</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">HomeCare Certification Path <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Confirm this belongs in the AE track before August 3 — may be for a different audience</div></td><td class="dur">90 min</td><td class="status-col"><span class="sc sc-scope">Confirm audience</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DAY 3 -->
+<div class="day open" id="day3">
+  <div class="day-header" onclick="toggle('day3')">
+    <span class="day-num">Day 3</span>
+    <span class="day-title">Types of Jobs + First Shadowing</span>
+    <span class="day-goal">AEs learn all job types before their first pro activation. Lowe's AEs: Preset Jobs volume only. SMB AEs: traditional leads + smart leads + job requests.</span>
+    <div class="day-counts">
+      <span class="sc sc-ready">9 ready</span>
+      <span class="sc sc-verify">2 verify</span>
+      <span class="sc sc-create">2 create</span>
+    </div>
+    <span class="toggle">▾</span>
+  </div>
+  <div class="day-body">
+    <table>
+      <thead><tr><th style="width:38%">Activity</th><th>Duration</th><th>Status</th><th>Placement</th><th>Topics</th><th>Lowe's</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="6">Live Session</td></tr>
+        <tr><td><div class="act-title">Welcome · Icebreaker · Assignment Review <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Opening routine</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Tools Activity w/ Mentors <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Hands-on platform practice while Admin content is fresh</div></td><td class="dur">60 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Shadowing — first observation <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Observation only — no selling expected yet</div></td><td class="dur">60 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Icebreaker · Shadowing Feedback <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Debrief after first observation</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Activating Pros <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Live activation session — AEs have job type context and have shadowed before this</div></td><td class="dur">60 min</td><td class="status-col"><span class="sc sc-verify">Verify accuracy</span></td><td class="placement-col"><span class="sc sc-from">From Day 4</span></td><td class="topics-col"><span class="tp tp-1">T1</span><span class="tp tp-5">T5</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Lowe's Live Session: Activation Walkthrough + Incentive Pitch <span class="tb tb-live">COMPASS LIVE</span> <span class="tb tb-new">NEW</span></div><div class="act-brief"><strong>Lowe's AEs only.</strong> Facilitated by Teppy or Josh. Three moments in one session: (1) live walkthrough of the Preset Jobs activation flow — BGC, license, credit card, targeting, EMR — so AEs practice the steps with an SME present to answer current-state questions; (2) incentive pitch practice using the $300 deck with coaching on co-branding language; (3) co-branding Q&amp;A — what to say when a pro asks about Lowe's, how to frame the incentive without attributing it to Lowe's. Teppy's guide and the co-branding brief become reference material, not primary training. Jennifer flagged the need for additional live support for Lowe's content — this is that session.</div></td><td class="dur">75–90 min</td><td class="status-col"><span class="sc sc-create">Create</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-5">T5</span></td><td class="lowes-col"><span class="sc-lowes-badge">Lowe's add-on</span></td></tr>
+        <tr class="section-row"><td colspan="6">Independent Learning</td></tr>
+        <tr><td><div class="act-title">Deep Dive: Job Requests <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Traditional lead mechanics — follows the live job type overview</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 2</span></td><td class="topics-col"><span class="tp tp-3">T3</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Quiz: Job Requests <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Confirm smart leads is covered here</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 2</span></td><td class="topics-col"><span class="tp tp-3">T3</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: Direct Leads <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Direct lead mechanics — clusters all job types together</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 2</span></td><td class="topics-col"><span class="tp tp-3">T3</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: Preset Jobs (formerly TToD) <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Claimable jobs — introduces Lowe's job type alongside others. Rename goes live July 14; update course title in Compass after that date.</div></td><td class="dur">20 min</td><td class="status-col"><span class="sc sc-verify">Verify accuracy ⚠️</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-3">T3</span><span class="tp tp-5">T5</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Thumbtack Experiments, Pilots &amp; Market-Based Tests <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Strategic context: Preset Jobs is a market test program</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 5</span></td><td class="topics-col"><span class="tp tp-5">T5</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Experiments Course Quiz <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Paired with Thumbtack Experiments course</div></td><td class="dur">10 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 5</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Teppy's TToD Pro Setup Guide <span class="tb tb-ext">EXTERNAL</span></div><div class="act-brief">Step-by-step activation guide: BGC, license, credit card, targeting, EMR. <strong>Open question:</strong> does the facilitation team present this as a live walkthrough, or does it get built into a Compass course?</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-5">T5</span></td><td class="lowes-col"><span class="sc-lowes-badge">Lowe's add-on</span></td></tr>
+        <tr><td><div class="act-title">Add Services to Pro Account <span class="tb tb-ext">EXTERNAL</span></div><div class="act-brief">Lowe's AEs need to verify and add the correct services to the pro's account — SDRs did not do this step. Part of the Preset Jobs activation checklist. <strong>Open question:</strong> facilitator demos live, or build as a Compass course?</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-1">T1</span></td><td class="lowes-col"><span class="sc-lowes-badge">Lowe's add-on</span></td></tr>
+        <tr><td><div class="act-title">Lowe's Co-Branding Compliance Brief <span class="tb tb-new">NEW</span></div><div class="act-brief">Approved vs. prohibited language, incentive framing rules, $300 deck title tension — short reference card, ~1–2 hrs to create</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-create">Create</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-5">T5</span></td><td class="lowes-col"><span class="sc-lowes-badge">Lowe's add-on</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DAY 4 -->
+<div class="day open" id="day4">
+  <div class="day-header" onclick="toggle('day4')">
+    <span class="day-num">Day 4</span>
+    <span class="day-title">Payments + Salesforce</span>
+    <span class="day-goal">All financial mechanics and Salesforce workflow in one day — operationally adjacent, reinforce each other</span>
+    <div class="day-counts">
+      <span class="sc sc-ready">9 ready</span>
+      <span class="sc sc-verify">3 verify</span>
+    </div>
+    <span class="toggle">▾</span>
+  </div>
+  <div class="day-body">
+    <table>
+      <thead><tr><th style="width:38%">Activity</th><th>Duration</th><th>Status</th><th>Placement</th><th>Topics</th><th>Lowe's</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="6">Live Session</td></tr>
+        <tr><td><div class="act-title">Welcome · Icebreaker · Assignment Review <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Opening routine</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Manager Open Forum Q&amp;A <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">AEs have shadowed and activated a pro; questions are more specific and actionable here</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Open Office <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Debrief and open questions after activations</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr class="section-row"><td colspan="6">Independent Learning</td></tr>
+        <tr><td><div class="act-title">Deep Dive: Budget <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Budget mechanics — clusters with payments content</div></td><td class="dur">10 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 2</span></td><td class="topics-col"><span class="tp tp-2">T2</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: Balance Refill <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Refill mechanics — clusters with payments content</div></td><td class="dur">10 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 2</span></td><td class="topics-col"><span class="tp tp-2">T2</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Sales Deep Dive: Updated SecurePay <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Payment processing, credit card requirements</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-verify">Verify accuracy</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-2">T2</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: Opportunities <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Salesforce opp mechanics — confirm opp creation from scratch is covered</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-verify">Verify scope</span></td><td class="placement-col"><span class="sc sc-from">From Day 2</span></td><td class="topics-col"><span class="tp tp-4">T4</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Sales Deep Dive: Sales Exceptions in Salesforce <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Exception handling and escalation paths</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-verify">Verify accuracy</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-4">T4</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">I made a sale! Now what? <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Post-sale process and next steps</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-4">T4</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Handoff — AE to National <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Account handoff workflow</div></td><td class="dur">20 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Pipeline Management for Outbound <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Pipeline view and Salesforce hygiene</div></td><td class="dur">10 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 1</span></td><td class="topics-col"><span class="tp tp-4">T4</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Sales Deep Dive: Prepaid Packages for New Hires <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Package pricing — clusters with financial content</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to Tableau / Deep Dive: Mega Dashboard <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Reporting tools — more meaningful after Salesforce context</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DAY 5 -->
+<div class="day open" id="day5">
+  <div class="day-header" onclick="toggle('day5')">
+    <span class="day-num">Day 5</span>
+    <span class="day-title">Sales Methodology</span>
+    <span class="day-goal">Consultative selling and objection handling land here — AEs now have platform knowledge, job context, and real shadowing to anchor the methodology</span>
+    <div class="day-counts">
+      <span class="sc sc-ready">7 ready</span>
+      <span class="sc sc-kendall">2 confirm w/ Kendall</span>
+    </div>
+    <span class="toggle">▾</span>
+  </div>
+  <div class="day-body">
+    <table>
+      <thead><tr><th style="width:38%">Activity</th><th>Duration</th><th>Status</th><th>Placement</th><th>Topics</th><th>Lowe's</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="6">Live Session</td></tr>
+        <tr><td><div class="act-title">Welcome · Icebreaker · Assignment Review <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Opening routine</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Mastering Consultative Selling <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Lands with product context and shadowing experience behind it</div></td><td class="dur">60 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Mastering Objection Handling <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Follows the consultative selling framework</div></td><td class="dur">45 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Discussion and Mock Call <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">AEs apply the methodology to a realistic call scenario</div></td><td class="dur">75 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr class="section-row"><td colspan="6">Independent Learning</td></tr>
+        <tr><td><div class="act-title">Mastering Consultative Selling <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">eLearning reinforcement — matches the live session</div></td><td class="dur">60 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Mastering Objection Handling <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">eLearning reinforcement</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">From Hesitation to Commitment <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">From Product Essentials sales program — closing and commitment language; pairs with objection handling. Confirm TT 101 assumption with Kendall.</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-kendall">Confirm w/ Kendall</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: Thumbtack Pro Rewards <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Pro value discussion context</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: Thumbtack Quality Commitment <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Supports objection handling context</div></td><td class="dur">10 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Lowe's $300 for 3 in 30 Incentive Deck <span class="tb tb-ext">EXTERNAL</span></div><div class="act-brief">Incentive pitch script — AEs have the selling framework to apply it. Note: deck title conflicts with co-branding rules; see co-branding brief. <strong>Open question:</strong> facilitation team presents this deck directly, or convert to a Compass course?</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-kendall">Confirm w/ Kendall</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-5">T5</span></td><td class="lowes-col"><span class="sc-lowes-badge">Lowe's add-on</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DAY 6 -->
+<div class="day open" id="day6">
+  <div class="day-header" onclick="toggle('day6')">
+    <span class="day-num">Day 6</span>
+    <span class="day-title">Advanced Selling Skills + SDR Script</span>
+    <span class="day-goal">Script and advanced skills follow the methodology — AEs now know what good looks like when they shadow a second time</span>
+    <div class="day-counts">
+      <span class="sc sc-ready">9 ready</span>
+      <span class="sc sc-kendall">1 confirm w/ Kendall</span>
+    </div>
+    <span class="toggle">▾</span>
+  </div>
+  <div class="day-body">
+    <table>
+      <thead><tr><th style="width:38%">Activity</th><th>Duration</th><th>Status</th><th>Placement</th><th>Topics</th><th>Lowe's</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="6">Live Session</td></tr>
+        <tr><td><div class="act-title">Welcome · Icebreaker · Assignment Review <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Opening routine</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to SDR Script <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Script work lands better after methodology is set</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">SDR Script continued <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Continues SDR Script practice</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Discovery Questions <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Builds directly on the consultative selling framework</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to Gatekeepers <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Selling challenge — makes sense after methodology is in place</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-from">From Day 3</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Shadowing — second observation <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">AEs observe with a selling framework — they know what good looks like</div></td><td class="dur">75 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr class="section-row"><td colspan="6">Independent Learning</td></tr>
+        <tr><td><div class="act-title">Beyond the Checklist: Diagnostic Discovery <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">From Product Essentials sales program — diagnostic questioning; reinforces Discovery Questions live session. Confirm TT 101 assumption with Kendall.</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-kendall">Confirm w/ Kendall</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Intro to Sales QA <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">QA context is more valuable after AEs have a selling framework to evaluate against</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Sales QA — AEs <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">QA calibration for AE calls</div></td><td class="dur">60 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: APIs, CRMs &amp; Integrations <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Advanced tool knowledge</div></td><td class="dur">10 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Deep Dive: Lead Pricing <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Deeper product knowledge for advanced selling conversations</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DAY 7 -->
+<div class="day open" id="day7">
+  <div class="day-header" onclick="toggle('day7')">
+    <span class="day-num">Day 7</span>
+    <span class="day-title">Practice + Integration</span>
+    <span class="day-goal">Synthesis — AEs apply everything in a realistic role-play context, then complete compliance and certification requirements</span>
+    <div class="day-counts">
+      <span class="sc sc-ready">11 ready</span>
+    </div>
+    <span class="toggle">▾</span>
+  </div>
+  <div class="day-body">
+    <table>
+      <thead><tr><th style="width:38%">Activity</th><th>Duration</th><th>Status</th><th>Placement</th><th>Topics</th><th>Lowe's</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="6">Live Session</td></tr>
+        <tr><td><div class="act-title">Welcome · Icebreaker · Shadowing Feedback <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Debrief from second shadowing</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Script Roleplaying <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Capstone practice — AEs have platform knowledge, job type context, and a selling framework</div></td><td class="dur">60 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"><span class="tp tp-6">T6</span></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Open Office <span class="tb tb-live">COMPASS LIVE</span></div><div class="act-brief">Final Q&amp;A and wrap-up</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr class="section-row"><td colspan="6">Independent Learning — Completion Block</td></tr>
+        <tr><td><div class="act-title">Post-activation Tasks in Tack <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Operational finalization steps</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">AE Exam <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Program knowledge check</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Sales Disposition Quiz <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Call disposition certification</div></td><td class="dur">5 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Welcome to Observe AI <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Call recording and coaching platform intro</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Screen Recording in Observe AI <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Screen recording setup and guidelines</div></td><td class="dur">—</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Data Security Annual Certification <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Required compliance learning path</div></td><td class="dur">45 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">Handling PII <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Personal data handling requirements</div></td><td class="dur">15 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+        <tr><td><div class="act-title">PCI Compliance for Sales <span class="tb tb-il">COMPASS COURSE</span></div><div class="act-brief">Payment card compliance certification</div></td><td class="dur">30 min</td><td class="status-col"><span class="sc sc-ready">Ready</span></td><td class="placement-col"><span class="sc sc-placed">In place</span></td><td class="topics-col"></td><td class="lowes-col"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- BOTTOM -->
+<div class="bottom">
+<div class="callout">
+  <h3>Before August 3 — action items</h3>
+  <ul>
+    <li><strong>External assets (Teppy's guide, $300 deck, Add Services):</strong> confirm delivery format before launch — does the facilitation team present these as-is in a live moment, or do they need to be built into Compass courses? This decision affects the Lowe's add-on structure.</li>
+    <li>Reschedule courses in Compass to match the new day-by-day order — see Placement column for what moves where (no content changes, scheduling only)</li>
+    <li>Confirm audience for 6 courses in Day 1 IL: De-escalation, Empathy at Thumbtack, Probing &amp; RCA, Personalization &amp; Engagement, Complete Resolution, Driving Value — added intentionally; reviewer needs to decide: keep, move to a later day, or remove</li>
+    <li>Run accuracy checks on courses listed below — prioritize Preset Jobs Deep Dive (rapidly changing) and Admin courses (high UI volatility)</li>
+    <li>Coordinate with Denton's team on the Lowe's add-on: Teppy's guide, $300 incentive deck, co-branding compliance brief, and "add services to pro account"</li>
+    <li>Confirm opp creation from scratch is covered in Salesforce courses; confirm smart leads is addressed in Job Requests</li>
+    <li>Sync with Kendall (Monday) on Product Essentials — confirm whether TT 101 is running for this cohort. If yes: remove Day 1 placeholder, keep Days 5–6 courses. If no: full 13-course program moves to Day 1.</li>
+    <li>TToD is being renamed "Preset Jobs" on July 14 — update course title in Compass after that date; do not update before launch</li>
+  </ul>
+</div>
+
+<h2>Accuracy checks — before August 3</h2>
+<div class="check-list">
+  <div class="check-item">
+    <div class="pri pri-high"></div>
+    <div><div class="check-title">Deep Dive: Preset Jobs (formerly TToD)</div><div class="check-note">Flagged in SMB-Lowe's Training call — "Lowe's changes every week." Verify all Preset Jobs steps, eligibility requirements, and activation flow before Day 3. Update course title in Compass after July 14.</div></div>
+  </div>
+  <div class="check-item">
+    <div class="pri pri-high"></div>
+    <div><div class="check-title">Intro to Admin for Sales + Intro to Tack for Sales</div><div class="check-note">Admin UI changes frequently. Screenshots and step sequences are the most likely to be stale. Verify before Day 2.</div></div>
+  </div>
+  <div class="check-item">
+    <div class="pri pri-med"></div>
+    <div><div class="check-title">Deep Dive: Opportunities</div><div class="check-note">Confirm the course covers creating an opportunity from scratch — not just post-sale steps. If missing, scope a targeted job aid rather than a full course rebuild.</div></div>
+  </div>
+  <div class="check-item">
+    <div class="pri pri-med"></div>
+    <div><div class="check-title">Quiz: Job Requests</div><div class="check-note">Confirm smart leads are addressed as a distinct category. If not, add a talking point to the Day 3 live session — no course rebuild needed.</div></div>
+  </div>
+  <div class="check-item">
+    <div class="pri pri-med"></div>
+    <div><div class="check-title">Sales Exceptions in Salesforce + Sales Deep Dive: Updated SecurePay</div><div class="check-note">Exception types and payment mechanics can change. Verify examples and process steps are still accurate.</div></div>
+  </div>
+  <div class="check-item">
+    <div class="pri pri-med"></div>
+    <div><div class="check-title">Background Check</div><div class="check-note">Confirm steps are current, especially for Preset Jobs-eligible categories (plumbing, electrical, HVAC).</div></div>
+  </div>
+  <div class="check-item">
+    <div class="pri pri-low"></div>
+    <div><div class="check-title">HomeCare Certification Path</div><div class="check-note">Confirm this belongs in the AE track — it may be for a different audience. If not AE-facing, remove before August 3.</div></div>
+  </div>
+</div>
+
+<h2 style="margin-top:1.5rem">Gaps from the six required topics</h2>
+<div style="margin-bottom:1.5rem">
+  <div class="gap-item">
+    <h4>T5 — Lowe's Co-Branding Compliance Brief</h4>
+    <p>The co-branding guidelines exist internally as a reference document but aren't formatted as AE training. AEs need to know before their first call: approved language ("teamed up with Lowe's"), prohibited language ("partnership"), and that incentives must always be framed as Thumbtack-driven. Note: the $300 deck is titled "Lowe's Strike Team Incentive Offer," which conflicts with the co-branding rule on incentive framing. AEs need to know how to work around that.</p>
+    <div class="action">Action: Create a short reference card — not a full course. ~1–2 hours. Assign to Denton's team for the Lowe's add-on. Needed before Lowe's AEs go live on calls.</div>
+  </div>
+  <div class="gap-item" style="border-left-color:#F39C12">
+    <h4>T5 — Preset Jobs value pitch for pros (facilitator note only)</h4>
+    <p>Existing materials cover the mechanics (Teppy's guide) and the incentive offer ($300 deck), but the underlying pitch — "steady claimable jobs, no competitive bidding" — isn't developed as a standalone training moment.</p>
+    <div class="action" style="color:#854F0B">Action: No new asset needed. Add a facilitator talking point to the Day 3 Activating Pros session — bridge from the Preset Jobs deep dive to "why a pro would want this."</div>
+  </div>
+</div>
+</div>
+
+<script>
+function toggle(id){const el=document.getElementById(id);el.classList.toggle('open')}
+</script>
+</body>
+</html>
